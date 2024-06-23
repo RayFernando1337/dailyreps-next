@@ -4,12 +4,17 @@ import React from 'react'
 import DeleteRepsButton from './DeleteRepsButton'
 import DeleteWorkoutButton from './DeleteWorkoutButton'
 import { secondsToTimestamp } from '@/utils'
+import Redirect from '@/components/Redirect'
 
 export const fetchCache = 'force-no-store';
 
 async function Workout({ params }: { params: { id: string } }) {
-
   const wo = await getWorkout(Number(params.id))
+
+  if (!wo) {
+    return <Redirect to="/workouts" />
+  }
+
   const reps = await getRepsForWorkout(Number(params.id))
 
   // TODO: type this

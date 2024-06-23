@@ -1,11 +1,15 @@
 import { getWorkoutsForList } from '@/actions'
 import Link from 'next/link'
-import React from 'react'
+import Redirect from '@/components/Redirect'
 
 export const fetchCache = 'force-no-store';
 
 async function Workouts() {
   const workouts = await getWorkoutsForList()
+
+  if (workouts.length === 0) {
+    return <Redirect to="/" />
+  }
 
   return (
     <div className='p-4'>
